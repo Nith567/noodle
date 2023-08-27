@@ -1,5 +1,6 @@
 import { UserButton } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
+import { useTheme } from 'next-themes';
 import { useRouter } from 'next/router';
 
 import { Button } from '@noodle/ui';
@@ -8,6 +9,7 @@ import { Icon } from '@/components/Icon';
 
 export const DashboardNavbar = () => {
   const router = useRouter();
+  const { resolvedTheme } = useTheme();
   return (
     <nav className="flex items-center justify-between">
       <div className="flex items-center gap-2">
@@ -44,14 +46,12 @@ export const DashboardNavbar = () => {
         <UserButton
           afterSignOutUrl="/"
           appearance={{
-            baseTheme: dark,
+            ...(resolvedTheme === 'dark' && { baseTheme: dark }),
           }}
         />
-
         <Button type="button" variant="muted" size="icon">
           <Icon name="bell-ring" />
         </Button>
-
         <Button
           type="button"
           variant="secondary"
